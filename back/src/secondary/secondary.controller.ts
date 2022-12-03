@@ -10,11 +10,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import {
-  ISecondary,
-  ISecondaryCreate,
-  SecondaryService,
-} from './secondary.service';
+import { Secondary } from '@prisma/client';
+import { SecondaryService } from './secondary.service';
 
 @Controller('secondary')
 export class SecondaryController {
@@ -31,7 +28,7 @@ export class SecondaryController {
   }
 
   @Post('')
-  async save(@Body() secondary: ISecondaryCreate) {
+  async save(@Body() secondary: Secondary) {
     return await this.service.save(secondary);
   }
 
@@ -44,7 +41,7 @@ export class SecondaryController {
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() secondary: ISecondary,
+    @Body() secondary: Secondary,
   ) {
     return await this.service.update(id, secondary);
   }

@@ -1,14 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Secondary } from '@prisma/client';
 import { Repository } from 'src/repository/repository';
-
-export interface ISecondary {
-  name: string;
-  quantity: number;
-}
-
-export interface ISecondaryCreate extends ISecondary {
-  primaryId: number;
-}
 
 @Injectable()
 export class SecondaryService {
@@ -26,22 +18,15 @@ export class SecondaryService {
     });
   }
 
-  async save({ name, quantity, primaryId }: ISecondaryCreate) {
+  async save(data: Secondary) {
     return await this.repository.secondary.create({
-      data: {
-        name,
-        quantity,
-        primaryId,
-      },
+      data,
     });
   }
 
-  async update(id: number, { name, quantity }: ISecondary) {
+  async update(id: number, data: Secondary) {
     return await this.repository.secondary.update({
-      data: {
-        name,
-        quantity,
-      },
+      data,
       where: {
         id,
       },

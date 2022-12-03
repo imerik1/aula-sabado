@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Primary } from '@prisma/client';
 import { Repository } from 'src/repository/repository';
-
-export interface IPrimary {
-  name: string;
-  age: number;
-}
 
 @Injectable()
 export class PrimaryService {
@@ -29,24 +25,18 @@ export class PrimaryService {
     });
   }
 
-  async save({ name, age }: IPrimary) {
+  async save(data: Primary) {
     return await this.repository.primary.create({
-      data: {
-        name,
-        age,
-      },
+      data,
       include: {
         secondaries: true,
       },
     });
   }
 
-  async update(id: number, { name, age }: IPrimary) {
+  async update(id: number, data: Primary) {
     return await this.repository.primary.update({
-      data: {
-        name,
-        age,
-      },
+      data,
       where: {
         id,
       },

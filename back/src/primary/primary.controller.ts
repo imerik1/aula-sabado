@@ -10,7 +10,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { IPrimary, PrimaryService } from './primary.service';
+import { Primary } from '@prisma/client';
+import { PrimaryService } from './primary.service';
 
 @Controller('primary')
 export class PrimaryController {
@@ -27,7 +28,7 @@ export class PrimaryController {
   }
 
   @Post('')
-  async save(@Body() primary: IPrimary) {
+  async save(@Body() primary: Primary) {
     return await this.service.save(primary);
   }
 
@@ -40,7 +41,7 @@ export class PrimaryController {
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() primary: IPrimary,
+    @Body() primary: Primary,
   ) {
     return await this.service.update(id, primary);
   }
