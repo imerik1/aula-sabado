@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Primary {
+  id   Int    @id @default(autoincrement())
+  name String
+  age  Int
+
+  // [PRISMA] Don't change
+  createdAt   DateTime    @default(now()) @db.Timestamp()
+  secondaries Secondary[]
+}
+
+model Secondary {
+  id       Int    @id @default(autoincrement())
+  name     String
+  quantity Int    @default(0)
+
+  // [PRISMA] Don't change
+  primary   Primary? @relation(fields: [primaryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  primaryId Int?
+  createdAt DateTime @default(now()) @db.Timestamp()
+}
