@@ -4,7 +4,7 @@
     cd back/
     npm install
     npm run db
-    npm run start:dev
+    npm run dev
 
 ## RODAR O FRONTEND
 
